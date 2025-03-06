@@ -1,0 +1,20 @@
+<div>
+  <b>{{ category }}</b>
+  @for (option of limit(); track $index) {
+  <div>
+    <input
+      type="checkbox"
+      [checked]="option.active"
+      (click)="handleClick($index)"
+    />
+    {{ option.name }}
+  </div>
+  }
+  <div>
+    <span (click)="all = !all">{{
+      options.length > 3 ? (all ? "See Less" : "See More") : ""
+    }}</span>
+    <span (click)="setAll(true)" class="option"> All</span>
+    <span (click)="setAll(false)" class="option"> None</span>
+  </div>
+</div>

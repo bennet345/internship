@@ -1,0 +1,76 @@
+<div class="calendar-container">
+  <div class="calendar-buttons">
+    @for (day of days; track $index) {
+    <span
+      (click)="selectedDay = day"
+      [ngClass]="{ bold: day === selectedDay, today: day === 0 }"
+    >
+      {{ `${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][relativeDate(day).getDay()]} ${relativeDate(day).getDate()}` }}
+    </span>
+    }
+  </div>
+  <div class="calendar">
+    @for (appointment of dayAppointments(search); track $index) {
+    <div
+      [style]="dynamicStyle($index, search)"
+      [ngClass]="{ selected: selected.includes(appointment.id) }"
+      class="event"
+      (click)="handleClick(appointment.id)"
+    >
+      <img
+        [src]="instructorService.getById(appointment.instructor)?.image"
+        [alt]="instructorService.getById(appointment.instructor)?.name"
+        class="image"
+      />
+      <span class="subject-name">{{
+        subjectService.getById(appointment.subject)?.name
+      }}</span>
+      <span>
+        <div>{{ formatTime(appointment.time[0]) }}</div>
+        <div>{{ formatTime(appointment.time[1]) }}</div>
+      </span>
+    </div>
+    }
+  </div>
+  @if (showPopup) {
+  <div class="popup">
+    <event-popup
+      (close)="showPopup = false"
+      (create)="createAppointment($event)"
+    />
+  </div>
+  } @if (updating !== -1) {
+  <div class="popup">
+    <event-popup (close)="updating = -1" (create)="updateAppointment($event)" />
+  </div>
+  }
+</div>
+<div class="sidebar">
+  <div (click)="showPopup = !showPopup" class="create">+ New Event</div>
+  <div>
+    <input
+      type="checkbox"
+      [value]="this.selecting"
+      (change)="toggleSelecting()"
+    />Select @if (selected.length > 0) {
+    <span (click)="appointmentService.deleteAppointments(selected)"
+      >Delete</span
+    >
+    }
+  </div>
+  <div class="search">
+    <input
+      class="event-search"
+      placeholder="event search"
+      [value]="search"
+      (keyup)="updateSearch($event)"
+    />
+  </div>
+  <div class="filter">
+    <app-filter-selector
+      category="Focus"
+      [options]="filter"
+      (update)="filter = $event"
+    />
+  </div>
+</div>

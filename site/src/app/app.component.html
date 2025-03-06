@@ -1,0 +1,9 @@
+<div class="router">
+  <span [routerLink]="['/instructors']" class="link">Instructors</span>
+  <span [routerLink]="['/subjects']" class="link">Subjects</span>
+  <span [routerLink]="['/calendar']" class="link">Calendar</span>
+  <span (click)="serverService.resetDB(false)" class="link"
+    >Students</span
+  >
+</div>
+<router-outlet> </router-outlet>

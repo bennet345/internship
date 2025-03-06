@@ -1,0 +1,37 @@
+.instructors {
+    display: inline-block;
+    margin: 5px;
+}
+
+.all-instructors {
+    position: absolute;
+    left: 175px;
+    top: 65px;
+}
+
+input {
+    width: 150px;
+}
+
+.popup {
+    position: absolute;
+    left: 400px;
+    top: 200px;
+    background-color: white;
+    padding: 20px;
+    z-index: 10;
+}
+
+.create {
+    font-size: 20px;
+    color: rgb(96, 180, 148);
+    padding-top: 30px;
+}
+
+.search {
+    padding: 20px 0px 20px 0px;
+}
+
+.sidebar {
+    padding-left: 10px;
+}

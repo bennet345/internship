@@ -1,0 +1,14 @@
+@if (id === null) {
+<div>
+  <b>Subjects</b>
+  @for (subject of subjectService.subjects; track $index) {
+  <div [routerLink]="[`/subjects/${subject.id}`]">{{ subject.name }}</div>
+  }
+  <input placeholder="name" #subjectsInput />
+
+  <button (click)="createSubject(subjectsInput.value)">create</button>
+</div>
+} @else {
+<button [routerLink]="['/subjects']">back</button>
+<h1>{{ subjectService.getById(id)!.name }}</h1>
+}

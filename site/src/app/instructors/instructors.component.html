@@ -1,0 +1,38 @@
+@if (id === null) {
+<div>
+  <div class="sidebar">
+    <div (click)="showPopup = !showPopup" class="create">+ New Instructor</div>
+    <div class="search">
+      <input
+        class="event-search"
+        placeholder="Search Instructors"
+        [value]="search"
+        (keyup)="updateSearch($event)"
+      />
+    </div>
+    <app-filter-selector
+      category="Subject"
+      [options]="options"
+      (update)="options = $event"
+    />
+  </div>
+  <div class="all-instructors">
+    @for (instructor of instructorService.filter(options, search); track $index)
+    {
+    <div class="instructors">
+      <app-instructor-small [instructor]="instructor" />
+    </div>
+    }
+  </div>
+</div>
+@if (showPopup) {
+<div class="popup">
+  <instructor-popup
+    (close)="showPopup = false"
+    (create)="this.instructorService.createInstructor($event)"
+  />
+</div>
+} } @else {
+<button [routerLink]="['/instructors']">back</button>
+<app-instructor-small [instructor]="instructorService.getById(id)!" />
+}

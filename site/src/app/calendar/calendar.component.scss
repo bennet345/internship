@@ -1,0 +1,92 @@
+.calendar {
+    position: absolute;
+    width: 1080px;
+    height: 570px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 10px;
+    background-color: rgb(230, 230, 230);
+}
+
+.calendar-container {
+    position: absolute;
+    left: 175px;
+    top: 60px;
+}
+
+.calendar-buttons {
+    margin-bottom: 5px;
+}
+
+.calendar-buttons > * {
+    display: inline-block;
+    text-align: center;
+    width: 30px;
+    height: 40px;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 10%;
+    color: rgb(96, 180, 148);
+}
+
+.calendar > .event {
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 4px;
+    background-color: rgb(196, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subject-name {
+    font-weight:bold;
+}
+
+.image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.popup {
+    position: absolute;
+    left: 400px;
+    top: 200px;
+    background-color: white;
+    padding: 20px;
+}
+
+.bold {
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(96, 180, 148) !important;
+}
+
+.today {
+    font-weight: bold;
+}
+
+.selected {
+    background-color: rgb(255, 128, 128) !important; 
+}
+
+.filter {
+    width: 150px;
+}
+
+.event-search {
+    width: 150px;
+}
+
+.create {
+    font-size: 20px;
+    color: rgb(96, 180, 148);
+    padding-top: 30px;
+}
+
+.sidebar > div {
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
