@@ -1,7 +1,7 @@
 .calendar {
     position: absolute;
     width: 1080px;
-    height: 510px;
+    height: 570px;
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 10px;
@@ -98,4 +98,8 @@
 .sidebar > div {
     margin-bottom: 10px;
     padding-left: 10px;
+}
+
+input {
+    padding: 2px;
 }

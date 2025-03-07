@@ -53,17 +53,6 @@
 </div>
 <div class="sidebar">
   <div (click)="showPopup = !showPopup" class="create">+ New Event</div>
-  <div>
-    <input
-      type="checkbox"
-      [value]="this.selecting"
-      (change)="toggleSelecting()"
-    />Select @if (selected.length > 0) {
-    <span (click)="appointmentService.deleteAppointments(selected)"
-      >Delete</span
-    >
-    }
-  </div>
   <div class="search">
     <input
       class="event-search"
@@ -78,5 +67,16 @@
       [options]="filter"
       (update)="filter = $event"
     />
+  </div>
+  <div>
+    <input
+      type="checkbox"
+      [value]="this.selecting"
+      (change)="toggleSelecting()"
+    />Select @if (selected.length > 0) {
+    <span (click)="appointmentService.deleteAppointments(selected)"
+      >Delete</span
+    >
+    }
   </div>
 </div>
