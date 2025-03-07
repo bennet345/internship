@@ -9,7 +9,11 @@ import { InstructorService } from '../services/instructor.service';
   template: `
     <div [routerLink]="[this.link()]" class='subject'>
         <h2>{{ subjectService.getById(id)!.name }}</h2>
-        <div><b>Teachers:</b> {{ teachers() }}</div>
+        @if (isTaught()) {
+            <div><b>Teachers:</b> {{ teachers() }}</div>
+        } @else {
+            <div>No one teaches this subject yet..</div>
+        }
     </div>
   `,
   styles: `
@@ -42,5 +46,12 @@ export class SubjectComponent {
             }
         }
         return output;
+    }
+
+    isTaught(): boolean {
+        for (let instructor of this.instructorService.instructors) {
+            if (instructor.subjects.includes(this.id)) return true;
+        }
+        return false;
     }
 }

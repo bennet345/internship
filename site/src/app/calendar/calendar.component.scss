@@ -1,11 +1,11 @@
 .calendar {
     position: absolute;
     width: 1080px;
-    height: 570px;
+    height: 510px;
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 10px;
-    background-color: rgb(230, 230, 230);
+    background: repeating-linear-gradient(90deg, rgb(230, 230, 230) 0, rgb(230, 230, 230) 120px, rgb(205, 205, 205) 120px, rgb(205, 205, 205) 240px);
 }
 
 .calendar-container {
