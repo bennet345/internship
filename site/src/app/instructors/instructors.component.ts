@@ -55,6 +55,6 @@ export class InstructorsComponent {
     return output;
   }
   updateSearch(event: Event) {
-    this.search = (event.target as any).value;
+    this.search = (event.target as HTMLInputElement).value;
   }
 }

@@ -8,8 +8,8 @@ import { Instructor, InstructorService } from '../services/instructor.service';
   template: `
     <div>
       <div>
-        <input placeholder="name" #input />
-        <input placeholder="picture" #imageInput />
+        <input placeholder="name" [value]='name' (keyup)='handleNameInput($event)' />
+        <input placeholder="picture" [value]='image' (keyup)='handleImageInput($event)' />
         <input type="color" #color />
       </div>
       <div>
@@ -35,23 +35,28 @@ import { Instructor, InstructorService } from '../services/instructor.service';
           (change)="this.select($event, $index)"
         >
           @for (subject of subjectService.subjects; track $index) {
-          <option [value]="subject.id">{{ subject.name }}</option>
+            <option [value]="subject.id">{{ subject.name }}</option>
           }
         </select>
         }
       </div>
       <div>
-        <button (click)="subjects.push(0)">+</button>
         <button
-          (click)="createInstructor(input.value, imageInput.value, color.value)"
+          (click)="createInstructor(name, image, color.value)"
+          [disabled]='!validInput(name, image)'
         >
-          SAVE
+          Save
         </button>
+        @if (subjects.length < subjectService.subjects.length) {
+          <button (click)="subjects.push(0)">+</button>
+        }
         <button (click)="close.emit()">X</button>
       </div>
     </div>
   `,
-  styles: ``,
+  styles: `
+
+  `,
 })
 export class EventPopupComponent {
   @Output() close = new EventEmitter<void>();
@@ -60,19 +65,15 @@ export class EventPopupComponent {
   instructorService: InstructorService = inject(InstructorService);
   instructor: number = 0;
   subjects: Array<number> = [0];
+  name: string = '';
+  image: string = '';
 
   constructor() {
     this.subjectService.whenReady(() => {});
   }
 
-  selectInstructor(event: Event) {
-    this.instructor = (event.target as any).value;
-  }
-  getInstructorSubjects(): number[] | undefined {
-    return this.instructorService.getById(this.instructor)?.subjects;
-  }
   select(event: Event, index: number) {
-    this.subjects[index] = (event.target as any).value;
+    this.subjects[index] = Number((event.target as HTMLSelectElement).value);
   }
   createInstructor(name: string, image: string, color: string) {
     this.instructorService.createInstructor({
@@ -83,4 +84,11 @@ export class EventPopupComponent {
       color,
     });
   }
+  validInput(name: string, image: string): boolean {
+    if ((new Set(this.subjects)).size !== this.subjects.length) { return false; }
+    if (name.length === 0 || image.length === 0) { return false; }
+    return true;
+  }
+  handleNameInput(event: KeyboardEvent) { this.name = (event.target! as HTMLInputElement).value; }
+  handleImageInput(event: KeyboardEvent) { this.image = (event.target! as HTMLInputElement).value; }
 }

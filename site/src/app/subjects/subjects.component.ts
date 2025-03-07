@@ -1,10 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SubjectService } from '../services/subject.service';
+import { SubjectComponent } from "./subject.component";
 
 @Component({
   selector: 'app-subjects',
-  imports: [RouterModule],
+  imports: [RouterModule, SubjectComponent],
   templateUrl: './subjects.component.html',
   styleUrl: './subjects.component.scss',
 })

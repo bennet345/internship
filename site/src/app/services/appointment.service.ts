@@ -57,6 +57,15 @@ export class AppointmentService {
     );
   }
 
+  getById(id: number): Appointment | null {
+    for (let appointment of this.appointments) {
+      if (appointment.id == id) {
+        return appointment;
+      }
+    }
+    return null;
+  }
+
   createAppointment(appointment: Appointment) {
     this.serverService.sendMessage('create_appointment', appointment);
   }

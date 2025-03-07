@@ -41,7 +41,13 @@
   </div>
   } @if (updating !== -1) {
   <div class="popup">
-    <event-popup (close)="updating = -1" (create)="updateAppointment($event)" />
+    <event-popup 
+      (close)="updating = -1" 
+      (create)="updateAppointment($event)" 
+      [defaultSubject]="appointmentService.getById(updating)!.subject"
+      [instructor]="appointmentService.getById(updating)!.instructor"
+      [defaultTime]="appointmentService.getById(updating)!.time"
+    />
   </div>
   }
 </div>

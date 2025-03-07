@@ -73,17 +73,6 @@ export class CalendarComponent {
         width: ${2 * (time[1] - time[0])}px;`;
   }
 
-  twoDigits(value: number): string {
-    if (value < 10) {
-      return `0${value}`;
-    }
-    return `${value}`;
-  }
-
-  formatTime(time: number): string {
-    return `${Math.floor(time / 60)}:${this.twoDigits(time % 60)}`;
-  }
-
   createAppointment(appointment: Appointment) {
     appointment.date = this.formatSelectedDate();
     this.appointmentService.createAppointment(appointment);
@@ -124,7 +113,7 @@ export class CalendarComponent {
   }
 
   updateSearch(event: Event) {
-    this.search = (event.target as any).value;
+    this.search = (event.target as HTMLInputElement).value;
   }
 
   handleClick(appointment: number) {
@@ -132,5 +121,17 @@ export class CalendarComponent {
       return this.toggleSelected(appointment);
     }
     this.updating = appointment;
+    console.log(this.updating);
+  }
+
+  twoDigits(value: number): string {
+    if (value < 10) {
+        return `0${value}`;
+    }
+    return `${value}`;
+  }
+
+  formatTime(time: number): string {
+    return `${Math.floor(time / 60)}:${this.twoDigits(time % 60)}`;
   }
 }
