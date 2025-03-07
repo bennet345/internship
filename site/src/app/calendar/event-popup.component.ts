@@ -88,6 +88,7 @@ export class EventPopupComponent {
         (times[1].getHours() - 1) * 60 + times[1].getMinutes(),
       ],
     });
+    this.close.emit();
   }
   twoDigits(value: number): string {
     if (value < 10) {

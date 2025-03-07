@@ -19,8 +19,7 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
                     (mouseenter)="hovering = [teacher.id, $event.x, $event.y]"
                     (mouseleave)='hovering = null'
                     [src]='teacher.image'
-                    style='border-radius: 50%; height: 30px; width: 30px;'
-                    [style]='colorStyle(teacher.color)'
+                    style='border-radius: 50%; height: 30px; width: 30px; background-color: {{ teacher.color }}; padding: 3px;'
                 />
             }
             @if (teachers().length < instructorService.instructors.length) {
@@ -43,13 +42,13 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
         }
         @if (add !== null) {
             <div 
-                [style]='hoverPositionStyle(this.add[1] + addOffset(this.add[1]), this.add[2])' 
+                [style]='hoverPositionStyle(this.add[1] + addOffset(this.add[1]), this.add[2] - 50)' 
                 style='background-color: white; width: 500px; padding: 10px; border-radius: 10px;'
             >
                 @for (instructor of instructorService.instructors; track $index) {
                     @if (! instructor.subjects.includes(id)) {
                         <img 
-                            style='margin-left: 5px; border-radius: 50%; height: 30px; width: 30px;'
+                            style='padding: 2px; background-color: {{instructor.color}}; margin-left: 5px; border-radius: 50%; height: 30px; width: 30px;'
                             (click)='this.instructorService.giveInstructorSubject(instructor.id, id)'
                             [src]='instructor.image'
                             (mouseenter)="hovering = [instructor.id, $event.x, $event.y]"
@@ -63,14 +62,15 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
   `,
   styles: `
     .subject {
-        background-color: rgb(224, 224, 255);
+        background-color: rgb(96, 180, 148);
         padding: 15px 20px 25px 30px;
         margin: 0px 10px 10px 0px;
         border-radius: 20px;
     }
 
     .teacher {
-        margin-right: 15px;
+        margin-right: 8px;
+        font-size: 23px;
     }
   `,
 })
@@ -100,10 +100,6 @@ export class SubjectComponent {
             if (instructor.subjects.includes(this.id)) return true;
         }
         return false;
-    }
-
-    colorStyle(color: string): string {
-        return `background-color: ${color}; padding: 3px;`;
     }
 
     hoverPositionStyle(x: number, y: number) {
