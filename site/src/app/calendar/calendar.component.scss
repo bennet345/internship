@@ -5,7 +5,16 @@
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 10px;
-    background: repeating-linear-gradient(90deg, rgb(230, 230, 230) 0, rgb(230, 230, 230) 120px, rgb(205, 205, 205) 120px, rgb(205, 205, 205) 240px);
+    background: repeating-linear-gradient(90deg, 
+        rgb(230, 235, 230) 0, rgb(230, 235, 230) 30px,
+        rgb(220, 225, 220) 30px, rgb(220, 225, 220) 60px, 
+        rgb(230, 235, 230) 60px, rgb(230, 235, 230) 90px, 
+        rgb(220, 225, 220) 90px, rgb(220, 225, 220) 120px, 
+        rgb(205, 205, 210) 120px, rgb(205, 205, 210) 150px,
+        rgb(195, 195, 200) 150px, rgb(195, 195, 200) 180px,
+        rgb(205, 205, 210) 180px, rgb(205, 205, 210) 210px,
+        rgb(195, 195, 200) 210px, rgb(195, 195, 200) 240px
+    );
 }
 
 .calendar-container {
