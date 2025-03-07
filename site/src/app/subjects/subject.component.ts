@@ -24,20 +24,28 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
                 </span>
             }
             @if (teachers().length < instructorService.instructors.length) {
-                <button (click)='add = [id, $event.x, $event.y]'>add</button>
+                <button (click)='handleClick($event)'>
+                    @if (this.add === null) {
+                        add 
+                    } @else {
+                        close
+                    }
+                </button>
             }
         } @else {
             <div>No one teaches this subject yet..</div>
         }
 
         @if (hovering !== null) {
-            <div [style]='hoverPositionStyle(this.hovering[1] - 120, this.hovering[2] + 50)' style='z-index: 10;'>
+            <div [style]='hoverPositionStyle(this.hovering[1] - 120, this.hovering[2] + hoverOffset(this.hovering[1], this.hovering[2]))' style='z-index: 10;'>
                 <app-instructor-small [instructor]='instructorService.getById(hovering[0])!' />
             </div>
         }
         @if (add !== null) {
-            <div [style]='hoverPositionStyle(this.add[1], this.add[2])' style='background-color: white; width: 500px;'>
-                <button (click)='add = null'>X</button>
+            <div 
+                [style]='hoverPositionStyle(this.add[1] + addOffset(this.add[1]), this.add[2])' 
+                style='background-color: white; width: 500px; padding: 10px; border-radius: 10px;'
+            >
                 @for (instructor of instructorService.instructors; track $index) {
                     @if (! instructor.subjects.includes(id)) {
                         <img 
@@ -100,5 +108,23 @@ export class SubjectComponent {
 
     hoverPositionStyle(x: number, y: number) {
         return `position: absolute; left: ${x}px; top: ${y}px;` 
+    }
+
+    hoverOffset(x: number, y: number): number {
+        if (y > 400) return -300; 
+        return 50;
+    }
+
+    addOffset(x: number): number {
+        if (x > 1000) return -700;
+        return 50;
+    }
+
+    handleClick(event: MouseEvent) {
+        if (this.add === null) {
+            this.add = [this.id, event.x, event.y]; 
+            return;
+        }
+        this.add = null;
     }
 }
