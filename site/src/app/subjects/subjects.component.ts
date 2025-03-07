@@ -22,6 +22,7 @@ export class SubjectsComponent {
   }
 
   createSubject(name: string) {
+    if (name === '') return;
     this.subjectService.createSubject({ name, id: 0 });
   }
 }

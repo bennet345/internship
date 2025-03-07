@@ -1,11 +1,10 @@
 @if (id === null) {
-<div>
+<div class='subjects'>
+  <input placeholder="name" #subjectsInput />
+  <div (click)="createSubject(subjectsInput.value)" class='create'>+ New Subject</div>
   @for (subject of subjectService.subjects; track $index) {
     <subject [id]='subject.id'/>
   }
-  <input placeholder="name" #subjectsInput />
-
-  <button (click)="createSubject(subjectsInput.value)">create</button>
 </div>
 } @else {
 <button [routerLink]="['/subjects']">back</button>

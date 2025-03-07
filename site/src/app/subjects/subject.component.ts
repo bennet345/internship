@@ -19,9 +19,9 @@ import { InstructorService } from '../services/instructor.service';
   styles: `
     .subject {
         background-color: blue;
-        padding: 10px;
-        width: 400px;
-        margin-bottom: 10px;
+        padding: 15px 20px 25px 30px;
+        margin: 0px 10px 10px 0px;
+        border-radius: 20px;
     }
   `,
 })
