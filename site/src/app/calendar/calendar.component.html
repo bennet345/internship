@@ -20,6 +20,8 @@
       <img
         [src]="instructorService.getById(appointment.instructor)?.image"
         [alt]="instructorService.getById(appointment.instructor)?.name"
+        (mouseenter)="hovering = [appointment.instructor, $event.x, $event.y]"
+        (mouseleave)='hovering = null'
         class="image"
       />
       <span class="subject-name">{{
@@ -49,6 +51,11 @@
       [defaultTime]="appointmentService.getById(updating)!.time"
     />
   </div>
+  }
+  @if (hovering !== null) {
+    <div [style]='dynamicHoverStyle()'>
+        <app-instructor-small [instructor]='instructorService.getById(hovering[0])!' />
+    </div>
   }
 </div>
 <div class="sidebar">

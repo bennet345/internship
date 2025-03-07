@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { SubjectService } from '../services/subject.service';
 import { RouterModule } from '@angular/router';
 import { Instructor, InstructorService } from '../services/instructor.service';
@@ -11,7 +11,7 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
     <div [routerLink]="[this.link()]" class='subject'>
         <h2>{{ subjectService.getById(id)!.name }}</h2>
         @if (isTaught()) {
-            <span class='teacher'>Teachers: </span>
+            <span class='teacher'>Instructors: </span>
             @for (teacher of teachers(); track $index) {
                 <span 
                     class='teacher' 
@@ -22,6 +22,9 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
                 >
                     {{ teacher.name }}
                 </span>
+            }
+            @if (teachers().length < instructorService.instructors.length) {
+                <button>add</button>
             }
         } @else {
             <div>No one teaches this subject yet..</div>

@@ -2,7 +2,6 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SubjectService } from '../services/subject.service';
 import { SubjectComponent } from "./subject.component";
-import { InstructorSmallComponent } from '../instructors/instructor-small.component';
 
 @Component({
   selector: 'app-subjects',

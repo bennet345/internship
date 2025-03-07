@@ -11,6 +11,7 @@ import {
   FilterSelectorComponent,
   Option,
 } from '../filter-selector/filter-selector.component';
+import { InstructorSmallComponent } from '../instructors/instructor-small.component';
 
 @Component({
   selector: 'app-calendar',
@@ -19,6 +20,7 @@ import {
     EventPopupComponent,
     FilterSelectorComponent,
     FilterSelectorComponent,
+    InstructorSmallComponent,
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
@@ -36,6 +38,7 @@ export class CalendarComponent {
   filter: Array<Option> = [];
   search: string = '';
   updating: number = -1;
+  hovering: Array<number> | null = null;
 
   constructor() {
     for (let i = -3; i <= 16; i++) this.days.push(i);
@@ -133,5 +136,9 @@ export class CalendarComponent {
 
   formatTime(time: number): string {
     return `${Math.floor(time / 60)}:${this.twoDigits(time % 60)}`;
+  }
+
+  dynamicHoverStyle() {
+    return `position: absolute; left: ${this.hovering![1] - 280}px; top: ${this.hovering![2]}px;` 
   }
 }
