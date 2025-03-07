@@ -33,10 +33,25 @@ export class InstructorService {
         this.instructors.push(data);
       }
     );
+    this.serverService.permanentListener<{id: number, subject: number}>(
+      'gave_instructor_subject',
+      data => {
+        let index = this.instructors.findIndex(element => element.id === data.id);
+        if (index === -1) return;
+        this.instructors[index].subjects.push(data.subject);
+      }
+    );
   }
 
   createInstructor(instructor: Instructor) {
     this.serverService.sendMessage('create_instructor', instructor);
+  }
+
+  giveInstructorSubject(instructor: number, subject: number) {
+    this.serverService.sendMessage('give_instructor_subject', {
+      id: instructor,
+      subject: subject,
+    });
   }
 
   getById(id: number): Instructor | null {

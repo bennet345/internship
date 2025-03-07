@@ -8,8 +8,8 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
   selector: 'subject',
   imports: [RouterModule, InstructorSmallComponent],
   template: `
-    <div [routerLink]="[this.link()]" class='subject'>
-        <h2>{{ subjectService.getById(id)!.name }}</h2>
+    <div class='subject'>
+        <h2 [routerLink]="[this.link()]">{{ subjectService.getById(id)!.name }}</h2>
         @if (isTaught()) {
             <span class='teacher'>Instructors: </span>
             @for (teacher of teachers(); track $index) {
@@ -24,15 +24,31 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
                 </span>
             }
             @if (teachers().length < instructorService.instructors.length) {
-                <button>add</button>
+                <button (click)='add = [id, $event.x, $event.y]'>add</button>
             }
         } @else {
             <div>No one teaches this subject yet..</div>
         }
 
         @if (hovering !== null) {
-            <div [style]='dynamicStyle()'>
+            <div [style]='hoverPositionStyle(this.hovering[1] - 120, this.hovering[2] + 50)' style='z-index: 10;'>
                 <app-instructor-small [instructor]='instructorService.getById(hovering[0])!' />
+            </div>
+        }
+        @if (add !== null) {
+            <div [style]='hoverPositionStyle(this.add[1], this.add[2])' style='background-color: white; width: 500px;'>
+                <button (click)='add = null'>X</button>
+                @for (instructor of instructorService.instructors; track $index) {
+                    @if (! instructor.subjects.includes(id)) {
+                        <img 
+                            style='margin-left: 5px; border-radius: 50%; height: 30px; width: 30px;'
+                            (click)='this.instructorService.giveInstructorSubject(instructor.id, id)'
+                            [src]='instructor.image'
+                            (mouseenter)="hovering = [instructor.id, $event.x, $event.y]"
+                            (mouseleave)='hovering = null'
+                        >
+                    }
+                }
             </div>
         }
     </div>
@@ -55,6 +71,7 @@ export class SubjectComponent {
     subjectService: SubjectService = inject(SubjectService);
     instructorService: InstructorService = inject(InstructorService);
     hovering: Array<number> | null = null;
+    add: Array<number> | null = null;
 
     link() {
         return `/subjects/${this.id}`;
@@ -81,7 +98,7 @@ export class SubjectComponent {
         return `color: ${color}`;
     }
 
-    dynamicStyle() {
-        return `position: absolute; left: ${this.hovering![1] - 120}px; top: ${this.hovering![2] + 50}px;` 
+    hoverPositionStyle(x: number, y: number) {
+        return `position: absolute; left: ${x}px; top: ${y}px;` 
     }
 }

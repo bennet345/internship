@@ -8,6 +8,7 @@ import get_instructors from './requests/get_instructors.js';
 import get_subjects from './requests/get_subjects.js';
 import delete_appointments from './requests/delete_appointments.js';
 import update_appointment from './requests/update_appointment.js';
+import give_instructor_subject from './requests/give_instructor_subject.js';
 
 const wss = new WebSocketServer({ port: 8080 });
 
@@ -18,15 +19,16 @@ wss.on('connection', ws => {
         let input = JSON.parse(data);
         console.log(input);
         switch (input.request) {
-            case 'reset':               { reset(ws, input); break; }
-            case 'get_instructors':     { get_instructors(ws, input); break; }
-            case 'create_instructor':   { create_instructor(ws, input); break; }
-            case 'get_subjects':        { get_subjects(ws, input); break; }
-            case 'create_subject':      { create_subject(ws, input); break; }
-            case 'create_appointment':  { create_appointment(ws, input); break; }
-            case 'get_appointments':    { get_appointments(ws, input); break; }
-            case 'delete_appointments': { delete_appointments(ws, input); break; }
-            case 'update_appointment':  { update_appointment(ws, input); break; }
+            case 'reset':                   { reset(ws, input); break; }
+            case 'get_instructors':         { get_instructors(ws, input); break; }
+            case 'create_instructor':       { create_instructor(ws, input); break; }
+            case 'get_subjects':            { get_subjects(ws, input); break; }
+            case 'create_subject':          { create_subject(ws, input); break; }
+            case 'create_appointment':      { create_appointment(ws, input); break; }
+            case 'get_appointments':        { get_appointments(ws, input); break; }
+            case 'delete_appointments':     { delete_appointments(ws, input); break; }
+            case 'update_appointment':      { update_appointment(ws, input); break; }
+            case 'give_instructor_subject': { give_instructor_subject(ws, input); break; }
             default: break;
         }
     });
