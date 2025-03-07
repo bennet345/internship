@@ -13,15 +13,15 @@ import { InstructorSmallComponent } from '../instructors/instructor-small.compon
         @if (isTaught()) {
             <span class='teacher'>Instructors: </span>
             @for (teacher of teachers(); track $index) {
-                <span 
+                <img
                     class='teacher' 
                     [routerLink]='"/instructors/" + teacher.id' 
                     (mouseenter)="hovering = [teacher.id, $event.x, $event.y]"
                     (mouseleave)='hovering = null'
+                    [src]='teacher.image'
+                    style='border-radius: 50%; height: 30px; width: 30px;'
                     [style]='colorStyle(teacher.color)'
-                >
-                    {{ teacher.name }}
-                </span>
+                />
             }
             @if (teachers().length < instructorService.instructors.length) {
                 <button (click)='handleClick($event)'>
@@ -103,7 +103,7 @@ export class SubjectComponent {
     }
 
     colorStyle(color: string): string {
-        return `color: ${color}`;
+        return `background-color: ${color}; padding: 3px;`;
     }
 
     hoverPositionStyle(x: number, y: number) {
